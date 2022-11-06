@@ -7,8 +7,10 @@ from File_Utils import *
 from AFNDE_to_AFND import AFNDE_to_AFND
 from AFND_to_AFD import AFND_to_AFD
 
+
 def get_line_content(text):
     return set(line[1:].strip().split(' '))
+
 
 if __name__ == "__main__":
     try:
@@ -34,10 +36,10 @@ if __name__ == "__main__":
                             for letter in A:
                                 if T.get(state) == None:
                                     T[state] = {}
-                                T[state][letter] = []
-                            
-                            T[state]['ê'] = []
-                            
+                                T[state][letter] = set()
+
+                            T[state]['ê'] = set()
+
                     case 'q':
                         q = line[1:].strip()
                     case 'F':
@@ -48,12 +50,10 @@ if __name__ == "__main__":
                         current_state = transaction[0]
                         letter = transaction[1]
                         next_state = transaction[2]
-                        T[current_state][letter].append(next_state)
+                        T[current_state][letter].add(next_state)
                     case 'P':
                         word = line[1:].strip()
                         P.append(word)
-                    # case _:
-                    #     pass
         M_AFNDE = AF(A, Q, q, T, F)
         M_AFND = AFNDE_to_AFND(M_AFNDE)
         M_AFD = AFND_to_AFD(M_AFND)
