@@ -15,12 +15,12 @@ def AFNDE_to_AFND(AFNDE: AF):
     AFND = deepcopy(AFNDE)
     transactions = AFND.T
 
-    # A principal ideia eh usar ê* - fechamento (estado)
-    # ê*(q) = todos os estados alcancaveis por ê a partir de um estado 'q'
-    #  logo a nova funcao de transicao sera T(q, a) = T(q, a) + ê*(q)
+    # A principal ideia eh usar ê+ - fechamento (estado)
+    # ê+(q) = todos os estados alcancaveis por ê a partir de um estado 'q'
+    #  logo a nova funcao de transicao sera T(q, a) = T(q, a) + ê+(q)
     # isto eh, na transicao vazia tera uma transicao com todas letras do alfabeto
     # depois 'ignorar' estados que tenham apenas transicoes vazias
-    all_e_asterisc = {}
+    all_e_plus = {}
 
     # Nos casos de ter um estado que soh possui transicoes vazias sera feito uma ligacao direta com o primeiro estado
     # que nao tiver apenas transicoes vazias
@@ -33,7 +33,7 @@ def AFNDE_to_AFND(AFNDE: AF):
     # se em ambos tiverem transicoes vazias ele nao vai retornar uma afnd (que nao deve ter esse tipo de transicao)
     for state in AFND.Q:
         # vai guardar todos estados ligados diretamente a esse por transicao vazia
-        e_asterisc = set()
+        e_plus = set()
 
         # uma pilha que vai ajudar a achar todos estados com ligacao por transicao vazia
         states_queue = deepcopy(transactions[state]['ê'])
@@ -48,12 +48,12 @@ def AFNDE_to_AFND(AFNDE: AF):
         # busca pelos estados ligados por transicao vazia
         while (len(states_queue) > 0):
             cur_state = states_queue.pop()
-            e_asterisc.add(cur_state)
+            e_plus.add(cur_state)
 
             for new_state in transactions[cur_state]['ê']:
-                if new_state not in e_asterisc and new_state not in states_queue:
+                if new_state not in e_plus and new_state not in states_queue:
                     states_queue.add(new_state)
-        all_e_asterisc[state] = e_asterisc
+        all_e_plus[state] = e_plus
 
     for state in states_to_ignore:
         AFND.Q.remove(state)
@@ -66,7 +66,7 @@ def AFNDE_to_AFND(AFNDE: AF):
         transactions[state].pop('ê')
         for symbol in transactions[state]:
             aux = list(transactions[state][symbol])
-            aux2 = list(all_e_asterisc[state])
+            aux2 = list(all_e_plus[state])
             transactions[state][symbol] = set(aux + aux2)
 
             states_of_symbol = transactions[state][symbol]
