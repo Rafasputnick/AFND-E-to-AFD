@@ -7,10 +7,10 @@ class AFD(AF):
 
     def check_word(self, word):
         transactions = self.T
-        cur_state = self.Q
+        cur_state = self.q
         for symbol in word:
             if cur_state != None and transactions[cur_state].get(symbol) != None:
-                cur_state = transactions[cur_state][symbol]
+                cur_state = list(transactions[cur_state][symbol])[0]
             else:
                 cur_state = None
         if cur_state in self.F:

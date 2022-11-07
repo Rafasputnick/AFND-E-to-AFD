@@ -13,7 +13,7 @@ def get_line_content(text):
 
 
 if __name__ == "__main__":
-    try:
+    # try:
         content_file = open_file('AFND_E_DEFINITION.txt').split('\n')
 
         # definicao para afnd-e
@@ -60,5 +60,6 @@ if __name__ == "__main__":
 
         for word in P:
             M_AFD.check_word(word)
-    except:
-        print("Ocorreu um erro desconhecido.")
+    # except Exception as e:
+    #     print("Ocorreu um erro.")
+    #     print("Exceção: " + str(e))

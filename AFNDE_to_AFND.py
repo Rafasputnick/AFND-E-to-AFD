@@ -74,5 +74,5 @@ def AFNDE_to_AFND(AFNDE: AF):
                 if states_tuple[0] in states_of_symbol:
                     states_of_symbol.discard(states_tuple[0])
                     states_of_symbol.add(states_tuple[1])
-
+    
     return AFND
