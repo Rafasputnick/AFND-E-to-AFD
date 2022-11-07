@@ -10,7 +10,7 @@ class AFD(AF):
         cur_state = self.q
         for symbol in word:
             if cur_state != None and transactions[cur_state].get(symbol) != None:
-                cur_state = list(transactions[cur_state][symbol])[0]
+                cur_state = transactions[cur_state][symbol]
             else:
                 cur_state = None
         if cur_state in self.F:

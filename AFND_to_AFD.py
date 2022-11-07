@@ -88,6 +88,12 @@ def AFND_to_AFD(afnde: AF):
             afnd.Q.discard(state)
             afnd.F.discard(state)
             del afnd.T[state]
-            
+
+    # Deixa transicoes com valor unico, se tornando assim um automato deterministico
+    for state in afnd.Q:
+        transactions = afnd.T[state]
+        for symbol in transactions.keys():
+            transactions[symbol] = list(transactions[symbol])[0] 
+
     afd = AFD(afnd.A, afnd.Q, afnd.q, afnd.T, afnd.F)
     return afd
