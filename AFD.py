@@ -4,6 +4,7 @@ from AF import AF
 class AFD(AF):
     def __init__(self, A: list, Q: list, q: str, T: list, F: list) -> None:
         super().__init__(A, Q, q, T, F)
+        self.all_checks_str = ''
 
     def check_word(self, word):
         transactions = self.T
@@ -14,6 +15,6 @@ class AFD(AF):
             else:
                 cur_state = None
         if cur_state in self.F:
-            print(f'M aceita a palavra <{word}>')
+            self.all_checks_str += f'M aceita a palavra <{word}>\n'
         else:
-            print(f'M rejeita a palavra <{word}>')
+            self.all_checks_str += f'M rejeita a palavra <{word}>\n'
