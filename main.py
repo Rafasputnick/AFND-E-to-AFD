@@ -8,7 +8,7 @@ from AFNDE_to_AFND import AFNDE_to_AFND
 from AFND_to_AFD import AFND_to_AFD
 
 
-def get_line_content(text):
+def get_line_content(line):
     try:
         return set(line[1:].strip().split(' '))
     except:
